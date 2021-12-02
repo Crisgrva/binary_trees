@@ -58,9 +58,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (!tree)
 		return (0);
 
-	if (binary_tree_balance(tree) == 0)
-		return ((binary_tree_is_perfect(tree->left) ==
-			binary_tree_is_perfect(tree->right)) ? 1 : 0);
-
-	return (0);
+	return ((binary_tree_balance(tree) == 0) &&
+		((binary_tree_is_perfect(tree->left) ==
+		binary_tree_is_perfect(tree->right))) ? 1 : 0);
 }
