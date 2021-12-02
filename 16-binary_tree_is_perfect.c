@@ -16,22 +16,34 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	height_r = tree->right ? 1 + binary_tree_height(tree->right) : 0;
 	return (height_l > height_r ? height_l : height_r);
 }
+
 /**
- * binary_tree_is_full - function that checks if a binary tree is full
- * @tree:  is a pointer to the root node of the tree to traverse
+ * binary_tree_balance - function that counts the nodes
+ * with at least 1 child in a binary tree
+ * @tree:  is a pointer to the root node of the tree
+ * to count the number of nodes
  * Return: If tree is NULL, your function must return 0
  */
-int binary_tree_is_full(const binary_tree_t *tree)
+
+int binary_tree_balance(const binary_tree_t *tree)
 {
+	size_t height_l;
+	size_t height_r;
+
 	if (!tree)
 		return (0);
-	if (!tree->left && !tree->right)
-		return (1);
 
-	return ((binary_tree_is_full(tree->left) == 1) &&
-					(binary_tree_is_full(tree->right) == 1)
-				? 1
-				: 0);
+	if (tree->left)
+		height_l = binary_tree_height(tree->left) + 1;
+	else
+		height_l = 0;
+
+	if (tree->right)
+		height_r = binary_tree_height(tree->right) + 1;
+	else
+		height_r = 0;
+
+	return (height_l - height_r);
 }
 
 /**
@@ -45,13 +57,9 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 {
 	if (!tree)
 		return (0);
-	if (binary_tree_height(tree->left) != binary_tree_height(tree->right))
-	{
-		return (0);
-	}
 
-	return ((binary_tree_is_full(tree->left) == 0) || (binary_tree_is_full(tree->right) == 0) ? 0 : 1);
-
-	if (binary_tree_is_perfect(tree->left) && binary_tree_is_perfect(tree->right))
-		return (1);
+	return (binary_tree_balance(tree->left) ==
+					binary_tree_balance(tree->right)
+				? 1
+				: 0);
 }
