@@ -13,7 +13,7 @@ void print_num(int n)
 }
 
 /**
- * main - Entry point
+ * main - Entry point of binary tree
  *
  * Return: Always 0 (Success)
  */
